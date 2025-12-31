@@ -1,7 +1,10 @@
 #!/usr/bin/env node
-import { join } from "node:path";
+import { join, dirname } from "node:path";
 import { spawn } from "node:child_process";
+import { fileURLToPath } from "node:url";
 import { glob } from "glob";
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 /**
  * Execute a command with inherited stdio
@@ -35,7 +38,7 @@ export async function execCommand(
  */
 export async function formatGeneratedFiles(): Promise<void> {
   try {
-    const componentsDir = join(import.meta.dirname!, "../components");
+    const componentsDir = join(__dirname, "../components");
 
     const componentFiles = await glob("**/*.{ts,tsx}", {
       cwd: componentsDir,

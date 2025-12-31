@@ -29,8 +29,8 @@ async function askCloudflare() {
   console.log(`\n🔍 Asking Cloudflare Docs: "${query}"...`);
 
   const transport = new StdioClientTransport({
-    command: "npx", 
-    args: ["-y", "mcp-remote", "https://docs.mcp.cloudflare.com/mcp"],
+    command: "pnpm", 
+    args: ["dlx", "mcp-remote", "https://docs.mcp.cloudflare.com/mcp"],
   });
 
   const client = new Client(
