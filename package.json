@@ -130,5 +130,11 @@
     "*": [
       "npx prettier --check --ignore-unknown"
     ]
+  },
+  "pnpm": {
+    "overrides": {
+      "react": "19.2.1",
+      "react-dom": "19.2.1"
+    }
   }
 }
