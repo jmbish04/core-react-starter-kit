@@ -63,40 +63,32 @@
             -ms-overflow-style: none;
             scrollbar-width: none;
         }
+        /* Tab Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in {
+            animation: fadeIn 0.3s ease-out forwards;
+        }
+        /* JSON Syntax Highlighting */
+        .json-key { color: #9cdcfe; }
+        .json-string { color: #ce9178; }
+        .json-number { color: #b5cea8; }
+        .json-bool { color: #569cd6; }
     </style>
 </head>
 <body class="bg-stone-100 text-stone-800 antialiased selection:bg-teal-200 selection:text-teal-900">
 
-    <!-- REQUIRED PLACEHOLDERS -->
-    <!-- Chosen Palette: Warm Neutrals (Stone/Zinc) with Teal/Cyan technical accents. Professional, clean, architectural. -->
-    <!-- Application Structure Plan: 
-         1. Header: Mission statement & role definition.
-         2. Interactive Architecture Map (Top): A visual clickable grid representing the Stack (Frontend vs Backend). This anchors the user in the system design immediately.
-         3. Simulation Console (Middle): Allows the user to 'run' a workflow (e.g. Draft Email) to see the logic flow described in the prompt.
-         4. Deep Research Modules (Bottom): Tabbed interface for specific domains (Gmail, Drive, Editors) to avoid text overload.
-         5. Feasibility Analysis (Sidebar/integrated): Chart.js comparison of approaches.
-         Why? The prompt is a technical blueprint. The best way to understand an architecture is to interact with its diagram and simulate its processes.
-    -->
-    <!-- Visualization & Content Choices:
-         1. Architecture Map: HTML/Tailwind Grid. No SVG. Interactive blocks display details on click. Goal: Spatial understanding of the stack.
-         2. Radar Chart: Chart.js. Compares 'Standard Apps Script' vs 'Agentic Cloudflare' on Latency, Power, Complexity. Goal: Justify the architecture.
-         3. Workflow Simulator: JS-driven list generation with delays. Goal: Visualize the async nature of Queues/Workflows described in the prompt.
-         4. Tabbed Content: Standard HTML/JS. Goal: Organize dense research questions per app (Gmail/Drive/Docs).
-         CONFIRMATION: NO SVG graphics used. NO Mermaid JS used.
-    -->
-    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
-
-    <!-- Main Container -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
 
-        <!-- Header Section -->
         <header class="bg-white border-l-4 border-teal-600 shadow-sm rounded-r-lg p-6">
             <div class="flex flex-col md:flex-row justify-between items-start md:items-center">
                 <div>
                     <h1 class="text-2xl md:text-3xl font-bold text-stone-900 mb-2">Agentic Workspace Blueprint</h1>
                     <p class="text-stone-600 text-sm md:text-base max-w-2xl">
                         Technical specification for a hybrid architecture: <strong>Cloudflare Workers</strong> (Backend Brain) + <strong>Google Apps Script</strong> (Frontend Interface).
-                        Designed to enable autonomous agents within Gmail, Drive, and Editors.
+                        Incorporates <strong>Hierarchical Orchestration</strong> and <strong>Planning Agents</strong>.
                     </p>
                 </div>
                 <div class="mt-4 md:mt-0 px-4 py-2 bg-stone-100 rounded text-xs font-mono text-stone-500">
@@ -106,10 +98,8 @@
             </div>
         </header>
 
-        <!-- Top Row: Architecture & Feasibility -->
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
             
-            <!-- Interactive Architecture Map (2/3 width) -->
             <section class="lg:col-span-2 bg-white rounded-xl shadow-sm border border-stone-200 overflow-hidden flex flex-col">
                 <div class="p-5 border-b border-stone-100">
                     <h2 class="text-lg font-bold flex items-center gap-2">
@@ -119,9 +109,7 @@
                     <p class="text-xs text-stone-500 mt-1">Click a component to reveal specification details.</p>
                 </div>
 
-                <!-- The Map (CSS Grid) -->
                 <div class="p-6 bg-stone-50 flex-grow flex flex-col justify-center">
-                    <!-- Layer Labels -->
                     <div class="flex justify-between text-xs font-mono text-stone-400 mb-2 px-2">
                         <span>USER LAYER (Google)</span>
                         <span>BRIDGE</span>
@@ -129,49 +117,41 @@
                         <span>DATA LAYER</span>
                     </div>
 
-                    <!-- Diagram Container -->
                     <div class="grid grid-cols-4 gap-4 relative">
-                        <!-- Connecting "Lines" (Simulated with borders/positioning) -->
                         <div class="absolute top-1/2 left-0 w-full h-1 bg-stone-200 -z-0"></div>
 
-                        <!-- Node 1: Apps Script -->
                         <div onclick="selectArch('frontend')" id="node-frontend" class="arch-block relative z-10 bg-white border-2 border-blue-200 p-4 rounded-lg text-center h-32 flex flex-col items-center justify-center hover:border-blue-400">
                             <span class="text-2xl mb-2">⚡</span>
                             <span class="font-bold text-sm text-stone-800">Apps Script</span>
-                            <span class="text-[10px] text-stone-500">CardService UI</span>
+                            <span class="text-[10px] text-stone-500">Adaptive UI / Renderer</span>
                         </div>
 
-                        <!-- Node 2: Auth Bridge -->
                         <div onclick="selectArch('auth')" id="node-auth" class="arch-block relative z-10 bg-white border-2 border-orange-200 p-4 rounded-lg text-center h-32 flex flex-col items-center justify-center hover:border-orange-400">
                             <span class="text-2xl mb-2">🔐</span>
                             <span class="font-bold text-sm text-stone-800">Auth Bridge</span>
                             <span class="text-[10px] text-stone-500">OAuth2 / Service Acct</span>
                         </div>
 
-                        <!-- Node 3: Worker / Agents -->
                         <div onclick="selectArch('worker')" id="node-worker" class="arch-block relative z-10 bg-white border-2 border-teal-200 p-4 rounded-lg text-center h-32 flex flex-col items-center justify-center hover:border-teal-400">
                             <span class="text-2xl mb-2">⚙️</span>
                             <span class="font-bold text-sm text-stone-800">CF Workers</span>
-                            <span class="text-[10px] text-stone-500">Agents SDK / Queues</span>
+                            <span class="text-[10px] text-stone-500">Planning & Review Agents</span>
                         </div>
 
-                        <!-- Node 4: Storage -->
                         <div onclick="selectArch('storage')" id="node-storage" class="arch-block relative z-10 bg-white border-2 border-indigo-200 p-4 rounded-lg text-center h-32 flex flex-col items-center justify-center hover:border-indigo-400">
                             <span class="text-2xl mb-2">💾</span>
                             <span class="font-bold text-sm text-stone-800">D1 & Vectorize</span>
-                            <span class="text-[10px] text-stone-500">State & Embeddings</span>
+                            <span class="text-[10px] text-stone-500">State Checkpoints</span>
                         </div>
                     </div>
                 </div>
 
-                <!-- Detail Panel -->
                 <div class="bg-stone-100 p-5 border-t border-stone-200 min-h-[140px]">
                     <h3 id="detail-title" class="font-bold text-stone-800 text-sm mb-2">Select a component above...</h3>
                     <p id="detail-desc" class="text-sm text-stone-600 leading-relaxed">Interact with the architecture map to understand the specific role of each component in the Agentic Workspace.</p>
                 </div>
             </section>
 
-            <!-- Feasibility Radar Chart (1/3 width) -->
             <section class="lg:col-span-1 bg-white rounded-xl shadow-sm border border-stone-200 p-5 flex flex-col">
                 <h2 class="text-lg font-bold mb-1">Stack Comparison</h2>
                 <p class="text-xs text-stone-500 mb-4">Native Apps Script vs. Cloudflare Agentic</p>
@@ -186,188 +166,125 @@
             </section>
         </div>
 
-        <!-- Middle Row: Interactive Simulation -->
         <section class="bg-white rounded-xl shadow-sm border border-stone-200 overflow-hidden">
             <div class="p-6 border-b border-stone-100 bg-stone-50">
                 <div class="flex flex-col md:flex-row justify-between items-center gap-4">
                     <div>
                         <h2 class="text-lg font-bold text-stone-800">Workflow Simulator</h2>
-                        <p class="text-sm text-stone-600 mt-1">Visualize the async data flow between Google Workspace and Cloudflare.</p>
+                        <p class="text-sm text-stone-600 mt-1">Visualize the <span class="text-teal-600 font-bold">Plan -> Execute -> Review</span> cycle.</p>
                     </div>
-                    <div class="flex gap-2">
+                    <div class="flex flex-col sm:flex-row gap-2">
                         <select id="sim-selector" class="bg-white border border-stone-300 text-stone-700 text-sm rounded-lg focus:ring-teal-500 focus:border-teal-500 block p-2.5">
-                            <option value="draft">Simulate: Context-Aware Email Draft</option>
-                            <option value="index">Simulate: Drive Knowledge Indexing</option>
+                            <option value="draft">Draft: Context-Aware Email (RAG)</option>
+                            <option value="index">Index: Knowledge Base (Async)</option>
+                            <option value="schedule">Schedule: Multi-Agent Negotiation</option>
+                            <option value="analyst">Analyst: Data to Insights (Sheets)</option>
                         </select>
-                        <button onclick="runSimulation()" class="text-white bg-teal-700 hover:bg-teal-800 focus:ring-4 focus:ring-teal-300 font-medium rounded-lg text-sm px-5 py-2.5 focus:outline-none">
+                        <button onclick="runSimulation()" class="text-white bg-teal-700 hover:bg-teal-800 focus:ring-4 focus:ring-teal-300 font-medium rounded-lg text-sm px-5 py-2.5 focus:outline-none transition-colors">
                             Execute Agent
                         </button>
                     </div>
                 </div>
             </div>
             
-            <!-- Terminal Output Area -->
-            <div class="p-6 bg-stone-900 text-teal-400 font-mono text-xs md:text-sm h-64 overflow-y-auto rounded-b-xl shadow-inner relative" id="console-output">
+            <div class="p-6 bg-stone-900 text-teal-400 font-mono text-xs md:text-sm h-72 overflow-y-auto rounded-b-xl shadow-inner relative" id="console-output">
                 <div class="absolute top-4 right-4 text-stone-600 select-none">CONSOLE_OUT</div>
                 <div id="sim-logs" class="space-y-2">
-                    <p class="text-stone-500">// System ready. Waiting for trigger...</p>
+                    <p class="text-stone-500">// System ready. Select a workflow to simulate.</p>
                 </div>
             </div>
         </section>
 
-        <!-- Bottom Row: Deep Research Modules (Tabs) -->
         <section class="bg-white rounded-xl shadow-sm border border-stone-200">
             <div class="p-6 border-b border-stone-100">
                 <h2 class="text-xl font-bold text-stone-800">Domain Specific Research</h2>
                 <p class="text-stone-600 mt-2">Deep dive into specific implementation strategies for each Workspace application.</p>
             </div>
 
-            <!-- Tab Navigation -->
-            <div class="border-b border-stone-200">
-                <nav class="flex -mb-px px-6 overflow-x-auto no-scrollbar" aria-label="Tabs">
-                    <button onclick="switchTab('gmail')" id="tab-gmail" class="tab-btn active border-teal-500 text-teal-600 whitespace-nowrap py-4 px-4 border-b-2 font-medium text-sm">
-                        Gmail: Drafting
+            <div class="border-b border-stone-200 overflow-x-auto">
+                <nav class="flex -mb-px px-6" aria-label="Tabs">
+                    <button onclick="switchTab('orchestration')" id="tab-orchestration" class="tab-btn active border-teal-500 text-teal-600 whitespace-nowrap py-4 px-4 border-b-2 font-medium text-sm transition-colors">
+                        Orchestration Patterns
                     </button>
-                    <button onclick="switchTab('drive')" id="tab-drive" class="tab-btn border-transparent text-stone-500 hover:text-stone-700 hover:border-stone-300 whitespace-nowrap py-4 px-4 border-b-2 font-medium text-sm">
-                        Drive: Knowledge Base
-                    </button>
-                    <button onclick="switchTab('editors')" id="tab-editors" class="tab-btn border-transparent text-stone-500 hover:text-stone-700 hover:border-stone-300 whitespace-nowrap py-4 px-4 border-b-2 font-medium text-sm">
+                    <button onclick="switchTab('editors')" id="tab-editors" class="tab-btn border-transparent text-stone-500 hover:text-stone-700 hover:border-stone-300 whitespace-nowrap py-4 px-4 border-b-2 font-medium text-sm transition-colors">
                         Editors: Collaboration
                     </button>
-                    <button onclick="switchTab('security')" id="tab-security" class="tab-btn border-transparent text-stone-500 hover:text-stone-700 hover:border-stone-300 whitespace-nowrap py-4 px-4 border-b-2 font-medium text-sm">
-                        Security & Privacy
+                    <button onclick="switchTab('gmail')" id="tab-gmail" class="tab-btn border-transparent text-stone-500 hover:text-stone-700 hover:border-stone-300 whitespace-nowrap py-4 px-4 border-b-2 font-medium text-sm transition-colors">
+                        Gmail: Drafting
                     </button>
                 </nav>
             </div>
 
-            <!-- Tab Content -->
             <div class="p-6 bg-stone-50 min-h-[300px]">
-                
-                <!-- Gmail Content -->
-                <div id="content-gmail" class="tab-content block animate-fade-in">
+
+                <div id="content-orchestration" class="tab-content block animate-fade-in">
                     <div class="grid md:grid-cols-2 gap-8">
                         <div>
-                            <h3 class="text-teal-800 font-bold mb-3">Context-Aware Drafting</h3>
+                            <h3 class="text-teal-800 font-bold mb-3">LangGraph Orchestrator Pattern</h3>
+                            <p class="text-xs text-stone-500 mb-3">Adapted from <code>MAQuesada/Google-Workspace-Agent</code> to run on Cloudflare Workers.</p>
                             <ul class="space-y-3 text-sm text-stone-700">
                                 <li class="flex items-start gap-2">
                                     <span class="text-teal-500 font-bold">1.</span>
-                                    <span><strong>Holistic Context Window:</strong> Do not rely on just the current thread. Worker queries `Vectorize` for "all past emails from sender" + "related Drive docs" before prompting the LLM.</span>
+                                    <span><strong>The Planning Phase:</strong> Before any API call, the Agent creates a JSON Blueprint. This allows for validation (e.g., "7x7 Rule" in Slides) and structural integrity checks.</span>
                                 </li>
                                 <li class="flex items-start gap-2">
                                     <span class="text-teal-500 font-bold">2.</span>
-                                    <span><strong>Tone Mimicry:</strong> Store user's `Sent` history in Vectorize. Retrieve top 5 semantically similar sent emails to use as "few-shot" examples for style.</span>
-                                </li>
-                                <li class="flex items-start gap-2">
-                                    <span class="text-teal-500 font-bold">3.</span>
-                                    <span><strong>Draft Injection:</strong> Use `Users.messages.drafts.create` API. The Add-on UI acts as a "Tuner" (Formal <-> Direct slider) which triggers a re-generation via the Worker.</span>
+                                    <span><strong>Review Agents:</strong> A secondary agent loop that:
+                                        <ul class="list-disc pl-4 mt-1 text-xs text-stone-600 space-y-1">
+                                            <li>Fetches the raw HTML/content after generation.</li>
+                                            <li>Checks against best practices (accessibility, formatting).</li>
+                                            <li>Applies "Self-Healing" fixes before notifying the user.</li>
+                                        </ul>
+                                    </span>
                                 </li>
                             </ul>
                         </div>
                         <div class="bg-white p-4 rounded-lg border border-stone-200 shadow-sm">
-                            <h4 class="font-mono text-xs font-bold text-stone-400 mb-2">UX PATTERN: THE TUNER</h4>
-                            <div class="space-y-4">
-                                <div class="h-2 bg-stone-100 rounded overflow-hidden">
-                                    <div class="w-3/4 h-full bg-teal-400"></div>
+                            <h4 class="font-mono text-xs font-bold text-stone-400 mb-2">PATTERN: PLAN -> EXECUTE -> REVIEW</h4>
+                            <div class="flex flex-col gap-2 items-center">
+                                <div class="w-full p-2 bg-stone-800 text-teal-400 rounded text-center text-xs font-mono border border-stone-700">
+                                    PHASE 1: PLAN (JSON Blueprint)
                                 </div>
-                                <div class="flex justify-between text-xs font-bold text-stone-500">
-                                    <span>Concise</span>
-                                    <span>Verbose</span>
+                                <div class="h-4 w-px bg-stone-300"></div>
+                                <div class="w-full p-2 bg-teal-600 text-white rounded text-center text-xs font-mono border border-teal-700">
+                                    PHASE 2: EXECUTE (Batch API)
                                 </div>
-                                <div class="p-3 bg-stone-50 text-xs text-stone-600 italic border-l-2 border-teal-500">
-                                    "User adjusts slider in Apps Script sidebar -> Worker receives parameter -> LLM re-prompts with style instruction -> Draft updated."
+                                <div class="h-4 w-px bg-stone-300"></div>
+                                <div class="w-full p-2 bg-indigo-50 text-indigo-800 rounded text-center text-xs font-mono border border-indigo-200">
+                                    PHASE 3: REVIEW (HTML Fetch & Fix)
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Drive Content -->
-                <div id="content-drive" class="tab-content hidden">
-                    <div class="grid md:grid-cols-2 gap-8">
-                        <div>
-                            <h3 class="text-teal-800 font-bold mb-3">Indexing & RAG Strategy</h3>
-                            <ul class="space-y-3 text-sm text-stone-700">
-                                <li class="flex items-start gap-2">
-                                    <span class="text-teal-500 font-bold">1.</span>
-                                    <span><strong>Selective Indexing:</strong> A "Worker Frontend" dashboard allows users to pick specific Folders to watch. Full drive indexing is too expensive/noisy.</span>
-                                </li>
-                                <li class="flex items-start gap-2">
-                                    <span class="text-teal-500 font-bold">2.</span>
-                                    <span><strong>Async Queues:</strong> Indexing is a long-running task. Apps Script triggers a job -> Cloudflare Queue accepts it -> Durable Object manages the pagination state of `Drive.Files.list`.</span>
-                                </li>
-                                <li class="flex items-start gap-2">
-                                    <span class="text-teal-500 font-bold">3.</span>
-                                    <span><strong>Cross-Pollination:</strong> Bridge Drive data into Gmail agents. "Draft reply using the 'Pricing PDF' in folder X".</span>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="bg-white p-4 rounded-lg border border-stone-200 shadow-sm">
-                            <h4 class="font-mono text-xs font-bold text-stone-400 mb-2">ARCHITECTURE: THE QUEUE LOOP</h4>
-                            <div class="flex flex-col gap-2">
-                                <div class="p-2 bg-stone-50 border border-stone-200 rounded text-xs text-center">User Selects Folder (UI)</div>
-                                <div class="text-center text-stone-300">⬇️</div>
-                                <div class="p-2 bg-stone-50 border border-stone-200 rounded text-xs text-center">CF Queue: "Index_Folder_123"</div>
-                                <div class="text-center text-stone-300">⬇️</div>
-                                <div class="p-2 bg-teal-50 border border-teal-200 rounded text-xs text-center font-bold text-teal-800">Consumer (Worker) splits PDF pages</div>
-                                <div class="text-center text-stone-300">⬇️</div>
-                                <div class="p-2 bg-indigo-50 border border-indigo-200 rounded text-xs text-center font-bold text-indigo-800">Vectorize: Store Embeddings</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Editors Content -->
                 <div id="content-editors" class="tab-content hidden">
                     <div class="grid md:grid-cols-2 gap-8">
                         <div>
-                            <h3 class="text-teal-800 font-bold mb-3">Docs, Sheets & Slides</h3>
+                            <h3 class="text-teal-800 font-bold mb-3">Active Collaboration & Creation</h3>
                             <ul class="space-y-3 text-sm text-stone-700">
                                 <li class="flex items-start gap-2">
                                     <span class="text-teal-500 font-bold">1.</span>
-                                    <span><strong>The "Alert" Problem:</strong> Use a `Cron` trigger in Cloudflare to poll `comments.list` API periodically, or a manual "Scan" button in the Add-on. Webhooks for Drive comments are limited.</span>
+                                    <span><strong>Resume Builder:</strong> Agent creates an outline, fills sections, and then <em>reads back</em> the HTML to ensure consistent header spacing.</span>
                                 </li>
                                 <li class="flex items-start gap-2">
                                     <span class="text-teal-500 font-bold">2.</span>
-                                    <span><strong>Rich Responses:</strong> Agents should use `suggestedData` in the API to propose edits rather than overwriting user text directly. Safer UX.</span>
+                                    <span><strong>Presentation Architect:</strong> Agent generates a JSON plan for slides. It validates content density (7x7 rule) and ensures speaker notes are present.</span>
                                 </li>
                                 <li class="flex items-start gap-2">
                                     <span class="text-teal-500 font-bold">3.</span>
-                                    <span><strong>Generative Actions:</strong> Use Cloudflare Workers AI to generate JSON structures for Sheets (batchUpdate) or Slides styling themes.</span>
+                                    <span><strong>Sheet Architect:</strong> Creates multi-tab spreadsheets by defining schema first. Handles formula propagation via <code>batchUpdate</code>.</span>
                                 </li>
                             </ul>
-                        </div>
-                         <div class="bg-white p-4 rounded-lg border border-stone-200 shadow-sm">
-                            <h4 class="font-mono text-xs font-bold text-stone-400 mb-2">REGEX AGENT SCANNER</h4>
-                            <div class="p-3 bg-stone-900 text-teal-400 font-mono text-xs rounded">
-                                > Scanning Doc ID: 1x7...9<br>
-                                > Found comment: "@agent fix grammar"<br>
-                                > Context: "The quick brown fox..."<br>
-                                > Action: Suggestion.InsertText<br>
-                                > Status: PENDING USER APPROVAL
-                            </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Security Content -->
-                <div id="content-security" class="tab-content hidden">
+                <div id="content-gmail" class="tab-content hidden">
                     <div class="grid md:grid-cols-2 gap-8">
                         <div>
-                            <h3 class="text-teal-800 font-bold mb-3">Security & Multi-Tenancy</h3>
-                            <ul class="space-y-3 text-sm text-stone-700">
-                                <li class="flex items-start gap-2">
-                                    <span class="text-teal-500 font-bold">1.</span>
-                                    <span><strong>Data Residency:</strong> Strict logical separation in D1. Use `user_id` as the partition key for all queries. One Durable Object per User (or per Organization) ensures memory isolation.</span>
-                                </li>
-                                <li class="flex items-start gap-2">
-                                    <span class="text-teal-500 font-bold">2.</span>
-                                    <span><strong>Secrets Management:</strong> Store Google Refresh Tokens in Cloudflare Encrypted KV or Secrets. Never expose tokens to the client-side Apps Script beyond the initial auth flow.</span>
-                                </li>
-                                <li class="flex items-start gap-2">
-                                    <span class="text-teal-500 font-bold">3.</span>
-                                    <span><strong>Auth Bridge:</strong> Use `SignInWithGoogle` on the Worker side to get a Refresh Token. Pass a session token to the Apps Script Add-on.</span>
-                                </li>
-                            </ul>
+                            <h3 class="text-teal-800 font-bold mb-3">Context-Aware Drafting</h3>
+                            <p class="text-sm text-stone-700">Includes Domain-Graph extraction and Hierarchical Voice Tuning to match specific client relationships. Uses Vectorize to find previous threads with similar participants.</p>
                         </div>
                     </div>
                 </div>
@@ -377,11 +294,10 @@
 
     </div>
 
-    <!-- JavaScript Logic -->
     <script>
         // --- State Management ---
         const appState = {
-            currentTab: 'gmail',
+            currentTab: 'orchestration',
             simulationRunning: false,
             selectedArchNode: null
         };
@@ -389,52 +305,40 @@
         // --- Data: Architecture Details ---
         const archDetails = {
             frontend: {
-                title: "Frontend: Google Apps Script (CardService)",
-                desc: "Acts strictly as a 'View' layer. It captures context (Email ID, Doc ID) and renders Cards based on JSON payloads from the Worker. Minimal logic resides here to avoid the 6-minute execution limit."
+                title: "Frontend: Google Apps Script",
+                desc: "Renderer Pattern. Acts as a dumb terminal. Receives JSON from Worker and renders Cards/Modals."
             },
             auth: {
-                title: "Auth Bridge: OAuth2 & Service Accounts",
-                desc: "Securely passes credentials. Uses a User-centric OAuth flow to grant the Worker 'offline' access (Refresh Token) so agents can work in the background (e.g., indexing) without the browser open."
+                title: "Auth Bridge",
+                desc: "OAuth2 & Service Accounts. Enables background agents to run without browser tabs open."
             },
             worker: {
-                title: "Backend: Cloudflare Workers & Agents SDK",
-                desc: "The 'Brain'. Handles complex logic, LLM calls (Workers AI), and orchestrates workflows. Uses Queues for long-running tasks like 'Index Shared Drive' to bypass HTTP timeout limits."
+                title: "Backend: CF Workers",
+                desc: "The Orchestrator. Runs Planning Agents, generates JSON Blueprints, and executes Batch APIs."
             },
             storage: {
-                title: "Data: D1 (SQL) & Vectorize",
-                desc: "D1 stores structured state (User prefs, Task logs). Vectorize stores semantic embeddings of emails and docs for RAG. Data is partitioned by User ID for strict multi-tenancy."
+                title: "Data: D1 & Vectorize",
+                desc: "Stores User Context, Embeddings, and Agent State Checkpoints."
             }
         };
 
         // --- Interaction: Architecture Map ---
         function selectArch(nodeId) {
-            // Remove active class from all
             document.querySelectorAll('.arch-block').forEach(el => {
-                el.classList.remove('active');
-                el.classList.remove('bg-teal-50');
+                el.classList.remove('active', 'bg-teal-50');
             });
-            
-            // Add active to selected
             const selected = document.getElementById(`node-${nodeId}`);
             selected.classList.add('active');
-
-            // Update Details
+            
             const info = archDetails[nodeId];
             const titleEl = document.getElementById('detail-title');
             const descEl = document.getElementById('detail-desc');
-
             titleEl.textContent = info.title;
             descEl.textContent = info.desc;
-            
-            // Animation reset
-            titleEl.classList.remove('animate-fade-in');
-            void titleEl.offsetWidth; // trigger reflow
-            titleEl.classList.add('animate-fade-in');
         }
 
         // --- Interaction: Tabs ---
         function switchTab(tabId) {
-            // Update buttons
             document.querySelectorAll('.tab-btn').forEach(btn => {
                 btn.classList.remove('active', 'border-teal-500', 'text-teal-600');
                 btn.classList.add('border-transparent', 'text-stone-500');
@@ -443,11 +347,37 @@
             activeBtn.classList.remove('border-transparent', 'text-stone-500');
             activeBtn.classList.add('active', 'border-teal-500', 'text-teal-600');
 
-            // Update content
             document.querySelectorAll('.tab-content').forEach(content => {
                 content.classList.add('hidden');
             });
-            document.getElementById(`content-${tabId}`).classList.remove('hidden');
+            const activeContent = document.getElementById(`content-${tabId}`);
+            activeContent.classList.remove('hidden');
+            activeContent.classList.remove('animate-fade-in');
+            void activeContent.offsetWidth; 
+            activeContent.classList.add('animate-fade-in');
+        }
+
+        // --- Helper: Colorize JSON ---
+        function syntaxHighlight(json) {
+            if (typeof json != 'string') {
+                json = JSON.stringify(json, undefined, 2);
+            }
+            json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+            return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function (match) {
+                var cls = 'json-number';
+                if (/^"/.test(match)) {
+                    if (/:$/.test(match)) {
+                        cls = 'json-key';
+                    } else {
+                        cls = 'json-string';
+                    }
+                } else if (/true|false/.test(match)) {
+                    cls = 'json-bool';
+                } else if (/null/.test(match)) {
+                    cls = 'json-null';
+                }
+                return '<span class="' + cls + '">' + match + '</span>';
+            });
         }
 
         // --- Interaction: Simulation ---
@@ -457,39 +387,81 @@
 
             const type = document.getElementById('sim-selector').value;
             const consoleEl = document.getElementById('sim-logs');
-            consoleEl.innerHTML = ''; // Clear logs
+            consoleEl.innerHTML = ''; 
 
-            const logs = type === 'draft' ? [
-                { text: "> User opens email. Add-on fetching context...", delay: 500 },
-                { text: "> Apps Script sends Thread ID to CF Worker...", delay: 1000 },
-                { text: "> Worker querying Vectorize for 'Related Docs'...", delay: 1800 },
-                { text: "> Found 3 relevant PDFs in D1 Index.", delay: 2400 },
-                { text: "> Retrieving User Tone from 'Sent' history...", delay: 3000 },
-                { text: "> Sending Prompt to LLM (Context + Tone)...", delay: 3800 },
-                { text: "> Generated Draft. Returning JSON to CardService.", delay: 4800 },
-                { text: "<span class='text-white bg-teal-600 px-1'>SUCCESS</span> Draft inserted in sidebar.", delay: 5000 }
-            ] : [
-                { text: "> User selects 'Project X' Folder to Index.", delay: 500 },
-                { text: "> Apps Script sends Folder ID to Worker.", delay: 1000 },
-                { text: "> Worker pushes Job to CF Queue: 'Index_Folder_X'", delay: 1500 },
-                { text: "> <span class='text-yellow-500'>ASYNC</span> Consumer picked up job.", delay: 2200 },
-                { text: "> Listing files (pagination handled by Durable Object)...", delay: 3000 },
-                { text: "> Processing file 1/50: 'Specs.pdf'", delay: 3800 },
-                { text: "> Generating Embeddings via Workers AI...", delay: 4500 },
-                { text: "> Vectorize Index Updated.", delay: 5200 },
-                { text: "<span class='text-white bg-teal-600 px-1'>DONE</span> Folder indexed in background.", delay: 5500 }
-            ];
+            let logs = [];
+
+            // --- SCENARIO 1: DRAFT (Context Aware Email) ---
+            if (type === 'draft') {
+                logs = [
+                    { text: "> User opens email. Add-on fetching context...", delay: 500 },
+                    { text: "> Apps Script sends Thread ID to CF Worker...", delay: 1000 },
+                    { text: "> Worker querying Vectorize for 'Related Docs'...", delay: 1800 },
+                    { text: "> Found 3 relevant PDFs in D1 Index.", delay: 2400 },
+                    { text: "> Retrieving User Tone from 'Sent' history...", delay: 3000 },
+                    { text: "> Sending Prompt to LLM (Context + Tone)...", delay: 3800 },
+                    { text: "> Generated Draft. Returning JSON to CardService.", delay: 4800 },
+                    { text: "<span class='text-white bg-teal-600 px-1'>SUCCESS</span> Draft inserted in sidebar.", delay: 5000 }
+                ];
+            } 
+            
+            // --- SCENARIO 2: INDEX (Knowledge Base) ---
+            else if (type === 'index') {
+                logs = [
+                    { text: "> User selects 'Project X' Folder to Index.", delay: 500 },
+                    { text: "> Apps Script sends Folder ID to Worker.", delay: 1000 },
+                    { text: "> Worker pushes Job to CF Queue: 'Index_Folder_X'", delay: 1500 },
+                    { text: "> <span class='text-yellow-500'>ASYNC</span> Consumer picked up job.", delay: 2200 },
+                    { text: "> Listing files (pagination handled by Durable Object)...", delay: 3000 },
+                    { text: "> Processing file 1/50: 'Specs.pdf'", delay: 3800 },
+                    { text: "> Generating Embeddings via Workers AI...", delay: 4500 },
+                    { text: "> Vectorize Index Updated.", delay: 5200 },
+                    { text: "<span class='text-white bg-teal-600 px-1'>DONE</span> Folder indexed in background.", delay: 5500 }
+                ];
+            }
+
+            // --- SCENARIO 3: SCHEDULE (Multi-Agent) ---
+            else if (type === 'schedule') {
+                logs = [
+                    { text: "> User Prompt: 'Find time with Dev Team for code review.'", delay: 500 },
+                    { text: "> <span class='text-teal-400'>[AGENT]</span> Calendar Orchestrator activated.", delay: 1000 },
+                    { text: "> Fetching availability for 5 attendees...", delay: 1800 },
+                    { text: "> <span class='text-red-400'>[CONFLICT]</span> Alice is OOO. Bob has conflicting meeting.", delay: 2500 },
+                    { text: "> Reasoning: Prioritizing 'Afternoon' based on team velocity logs.", delay: 3200 },
+                    { text: "> Identifying contiguous 45min blocks...", delay: 3800 },
+                    { text: "> Found slot: Thursday 2:00 PM EST.", delay: 4500 },
+                    { text: "> Drafting invites with 'Pre-read' links from recent commits.", delay: 5200 },
+                    { text: "<span class='text-white bg-teal-600 px-1'>SENT</span> Invites dispatched.", delay: 5800 }
+                ];
+            }
+
+            // --- SCENARIO 4: ANALYST (Data/Sheets) ---
+            else if (type === 'analyst') {
+                logs = [
+                    { text: "> User selects raw data range A1:F500.", delay: 500 },
+                    { text: "> Streaming CSV data to Worker (Python Environment)...", delay: 1200 },
+                    { text: "> <span class='text-indigo-400'>[PYTHON]</span> Cleaning Null values...", delay: 2000 },
+                    { text: "> <span class='text-indigo-400'>[PYTHON]</span> Calculating linear regression trend...", delay: 2800 },
+                    { text: "> Generating Chart Configuration (JSON)...", delay: 3500 },
+                    { text: "> Constructing Sheets API batchUpdate request...", delay: 4200 },
+                    { text: "> Inserting new 'Analysis' tab...", delay: 4800 },
+                    { text: "<span class='text-white bg-teal-600 px-1'>SUCCESS</span> Chart and Pivot Table created.", delay: 5500 }
+                ];
+            }
 
             // Execute logs
             for (let log of logs) {
                 await new Promise(r => setTimeout(r, log.delay - (logs[logs.indexOf(log)-1]?.delay || 0)));
                 const p = document.createElement('div');
-                p.className = "sim-step font-mono border-l-2 border-stone-700 pl-2";
-                p.innerHTML = log.text;
+                p.className = "sim-step font-mono border-l-2 border-stone-700 pl-2 mb-1";
+                // If log text is JSON (simplified check), wrap it
+                if (log.text.includes('<span class="json-key">')) {
+                    p.innerHTML = `<pre class="whitespace-pre-wrap text-[10px] bg-black bg-opacity-30 p-2 rounded border border-stone-700 mt-1">${log.text}</pre>`;
+                } else {
+                    p.innerHTML = log.text;
+                }
                 consoleEl.appendChild(p);
-                // Trigger reflow for animation
                 requestAnimationFrame(() => p.classList.add('visible'));
-                // Auto scroll
                 document.getElementById('console-output').scrollTop = document.getElementById('console-output').scrollHeight;
             }
 
@@ -505,9 +477,9 @@
                     labels: ['Context Window', 'Execution Time', 'State Persistence', 'Cost Efficiency', 'Dev Complexity', 'Latency'],
                     datasets: [{
                         label: 'Cloudflare Agentic',
-                        data: [90, 95, 100, 85, 40, 80], // High capability, higher complexity
+                        data: [90, 95, 100, 85, 40, 80], 
                         fill: true,
-                        backgroundColor: 'rgba(20, 184, 166, 0.2)', // Teal
+                        backgroundColor: 'rgba(20, 184, 166, 0.2)', 
                         borderColor: 'rgb(20, 184, 166)',
                         pointBackgroundColor: 'rgb(20, 184, 166)',
                         pointBorderColor: '#fff',
@@ -515,9 +487,9 @@
                         pointHoverBorderColor: 'rgb(20, 184, 166)'
                     }, {
                         label: 'Native Apps Script',
-                        data: [30, 20, 40, 90, 90, 60], // Low capability, easy dev
+                        data: [30, 20, 40, 90, 90, 60], 
                         fill: true,
-                        backgroundColor: 'rgba(120, 113, 108, 0.2)', // Stone
+                        backgroundColor: 'rgba(120, 113, 108, 0.2)', 
                         borderColor: 'rgb(120, 113, 108)',
                         pointBackgroundColor: 'rgb(120, 113, 108)',
                         pointBorderColor: '#fff',
@@ -528,29 +500,17 @@
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
-                    elements: {
-                        line: { borderWidth: 2 }
-                    },
+                    elements: { line: { borderWidth: 2 } },
                     scales: {
                         r: {
                             angleLines: { color: '#e7e5e4' },
                             grid: { color: '#e7e5e4' },
-                            pointLabels: {
-                                font: { size: 10, family: 'Inter' },
-                                color: '#57534e'
-                            },
+                            pointLabels: { font: { size: 10, family: 'Inter' }, color: '#57534e' },
                             ticks: { display: false, backdropColor: 'transparent' }
                         }
                     },
                     plugins: {
-                        legend: { position: 'top', labels: { font: { family: 'Inter' }, usePointStyle: true } },
-                        tooltip: {
-                            callbacks: {
-                                label: function(context) {
-                                    return context.dataset.label + ': ' + context.raw + '% Capability';
-                                }
-                            }
-                        }
+                        legend: { position: 'top', labels: { font: { family: 'Inter' }, usePointStyle: true } }
                     }
                 }
             });
