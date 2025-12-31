@@ -1,17 +1,27 @@
 #!/bin/bash
 
-# 1. Install Project Dependencies
-# Uses pnpm to respect the lockfile
-echo "📦 Installing project dependencies..."
+# --- 1. Fix Repo Configuration for pnpm ---
+echo "🔧 Migrating repo configuration to pnpm..."
+
+# Remove "packageManager": "bun..." from package.json to allow pnpm to run
+jq 'del(.packageManager)' package.json > package.json.tmp && mv package.json.tmp package.json
+
+# Generate pnpm-workspace.yaml from the existing workspaces field
+if [ ! -f "pnpm-workspace.yaml" ]; then
+  echo "packages:" > pnpm-workspace.yaml
+  jq -r '.workspaces[]' package.json | sed 's/^/  - /' >> pnpm-workspace.yaml
+fi
+
+# --- 2. Install Project Dependencies ---
+echo "📦 Installing project dependencies with pnpm..."
 pnpm install
 
-# 2. Install Tooling Dependencies
-# Ensures the MCP SDK and TSX runner are available for the script
+# --- 3. Install Tooling Dependencies ---
 echo "➕ Installing @modelcontextprotocol/sdk and tsx..."
 pnpm add -D @modelcontextprotocol/sdk tsx
 
-# 3. Create 'scripts/ask-cloudflare.ts' (if missing)
-# This guarantees the tool is available even if you haven't committed it yet.
+# --- 4. Create 'scripts/ask-cloudflare.ts' ---
+# Only creates it if it doesn't exist in the repo
 if [ ! -f "scripts/ask-cloudflare.ts" ]; then
   echo "🛠️  Creating scripts/ask-cloudflare.ts..."
   mkdir -p scripts
@@ -22,28 +32,29 @@ import { StdioClientTransport } from "@modelcontextprotocol/sdk/client/stdio.js"
 async function askCloudflare() {
   const query = process.argv[2];
   if (!query) {
-    console.error("\n❌ Usage: pnpm exec tsx scripts/ask-cloudflare.ts \"Query\"");
+    console.error("\n❌ Usage: pnpm exec tsx scripts/ask-cloudflare.ts \"Your question here\"");
     process.exit(1);
   }
 
   console.log(`\n🔍 Asking Cloudflare Docs: "${query}"...`);
 
   const transport = new StdioClientTransport({
-    command: "npx", 
-    args: ["-y", "mcp-remote", "https://docs.mcp.cloudflare.com/mcp"],
+    command: "pnpm", 
+    args: ["dlx", "mcp-remote", "https://docs.mcp.cloudflare.com/mcp"],
   });
 
   const client = new Client(
-    { name: "jules-client", version: "1.0.0" },
+    { name: "jules-docs-client", version: "1.0.0" },
     { capabilities: {} }
   );
 
   try {
     await client.connect(transport);
+    
     const tools = await client.listTools();
     const toolName = tools.tools.find(t => t.name === "ask" || t.name === "search")?.name;
-    
-    if (!toolName) throw new Error("No search tool found.");
+
+    if (!toolName) throw new Error("Could not find search tool on Cloudflare MCP.");
 
     const result = await client.callTool({
       name: toolName,
@@ -52,9 +63,13 @@ async function askCloudflare() {
 
     // @ts-ignore
     const answer = result.content.find(c => c.type === "text")?.text;
-    console.log("\n--- Answer ---\n" + (answer || "No result") + "\n--------------\n");
-  } catch (err) {
-    console.error("Error:", err);
+    
+    console.log("\n--- 💡 Cloudflare Docs Answer ---\n");
+    console.log(answer || "No answer found.");
+    console.log("\n-------------------------------\n");
+
+  } catch (error) {
+    console.error("\n❌ Error querying Cloudflare docs:", error);
   } finally {
     process.exit(0);
   }
@@ -66,6 +81,6 @@ else
   echo "✅ scripts/ask-cloudflare.ts already exists."
 fi
 
-# 4. Validation
+# --- 5. Validation ---
 echo "✅ Environment Ready."
 echo "👉 Try it: pnpm exec tsx scripts/ask-cloudflare.ts 'How do I use D1?'"
