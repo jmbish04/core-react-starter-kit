@@ -1,5 +1,5 @@
-#!/usr/bin/env bun
-// Usage: bun scripts/seed.ts [--env ENVIRONMENT=staging|prod]
+#!/usr/bin/env node
+// Usage: tsx scripts/seed.ts or cross-env ENVIRONMENT=staging tsx scripts/seed.ts
 
 import { drizzle } from "drizzle-orm/postgres-js";
 import postgres from "postgres";

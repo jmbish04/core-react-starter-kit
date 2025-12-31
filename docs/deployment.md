@@ -61,8 +61,8 @@ Note the Hyperdrive IDs returned - you'll need these for configuration.
 export DATABASE_URL="postgresql://user:pass@host/dbname"
 
 # Generate and apply migrations
-bun --filter @repo/db generate
-bun --filter @repo/db migrate
+pnpm --filter @repo/db generate
+pnpm --filter @repo/db migrate
 ```
 
 ## Cloudflare Workers Setup
@@ -122,19 +122,19 @@ Set `RESEND_EMAIL_FROM` to your sender email address:
 
 ```bash
 # Build packages in the correct order
-bun email:build   # Build email templates first
-bun web:build     # Build marketing site
-bun app:build     # Build React app
+pnpm email:build   # Build email templates first
+pnpm web:build     # Build marketing site
+pnpm app:build     # Build React app
 
 # Deploy apps to production
-bun api:deploy    # Deploy API server
-bun app:deploy    # Deploy React app
-bun web:deploy    # Deploy marketing site
+pnpm api:deploy    # Deploy API server
+pnpm app:deploy    # Deploy React app
+pnpm web:deploy    # Deploy marketing site
 
 # Or deploy to staging first
-bun wrangler deploy --config apps/api/wrangler.jsonc --env=staging
-bun wrangler deploy --config apps/app/wrangler.jsonc --env=staging
-bun wrangler deploy --config apps/web/wrangler.jsonc --env=staging
+pnpm wrangler deploy --config apps/api/wrangler.jsonc --env=staging
+pnpm wrangler deploy --config apps/app/wrangler.jsonc --env=staging
+pnpm wrangler deploy --config apps/web/wrangler.jsonc --env=staging
 ```
 
 ## OAuth Provider Setup
@@ -196,20 +196,25 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: oven-sh/setup-bun@v2
+      - uses: pnpm/action-setup@v4
         with:
-          bun-version: latest
+          version: 10
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'pnpm'
 
       - name: Install dependencies
-        run: bun install --frozen-lockfile
+        run: pnpm install --frozen-lockfile
 
       - name: Build Email Templates
-        run: bun email:build
+        run: pnpm email:build
 
       - name: Build Applications
         run: |
-          bun web:build
-          bun app:build
+          pnpm web:build
+          pnpm app:build
 
       - name: Deploy API to Cloudflare
         uses: cloudflare/wrangler-action@v3
@@ -247,18 +252,25 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: oven-sh/setup-bun@v2
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'pnpm'
 
       - name: Install dependencies
-        run: bun install --frozen-lockfile
+        run: pnpm install --frozen-lockfile
 
       - name: Build Email Templates
-        run: bun email:build
+        run: pnpm email:build
 
       - name: Build Applications
         run: |
-          bun web:build
-          bun app:build
+          pnpm web:build
+          pnpm app:build
 
       - name: Deploy API Preview
         uses: cloudflare/wrangler-action@v3
@@ -294,7 +306,7 @@ jobs:
 
 ### Development
 
-- Local development with `bun dev`
+- Local development with `pnpm dev`
 - Uses local environment variables from `.env.local`
 - Connects to development database
 
@@ -392,7 +404,7 @@ Keep migration rollback scripts:
 
 ```bash
 # Rollback last migration
-bun --filter @repo/db rollback
+pnpm --filter @repo/db rollback
 ```
 
 ## Security Checklist

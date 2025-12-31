@@ -1,7 +1,12 @@
 /**
  * Minimal WebSocket server example using WS-Kit.
  *
- * Run with: bun run example.ts
+ * NOTE: This example requires Bun runtime as it uses the @ws-kit/bun adapter
+ * and Bun.serve(). To run this example, you need Bun installed:
+ *   bun run example.ts
+ *
+ * For Node.js environments, consider using @ws-kit/node adapter instead.
+ * See: https://github.com/kriasoft/ws-kit for Node.js examples.
  */
 
 import { createBunHandler } from "@ws-kit/bun";

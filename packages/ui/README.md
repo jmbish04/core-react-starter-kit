@@ -17,8 +17,8 @@ We're shipping [shadcn/ui](https://ui.shadcn.com/) components built on [Radix UI
 ## Quick Start
 
 ```bash
-# Install (happens automatically with bun install in root)
-bun install
+# Install (happens automatically with pnpm install in root)
+pnpm install
 
 ```
 
@@ -175,25 +175,25 @@ Consuming apps **must** include UI package paths in their Tailwind CSS v4 config
 
 ```bash
 # From project root
-bun ui:add button               # Add a single component
-bun ui:add button card          # Add multiple components
-bun ui:essentials               # Install curated essential components
+pnpm ui:add button               # Add a single component
+pnpm ui:add button card          # Add multiple components
+pnpm ui:essentials               # Install curated essential components
 
 # From packages/ui directory
-bun run add dialog
+pnpm run add dialog
 ```
 
 ### Listing Components
 
 ```bash
-bun ui:list                     # Show all installed components with metadata
+pnpm ui:list                     # Show all installed components with metadata
 ```
 
 ### Updating Components
 
 ```bash
-bun ui:update                   # Update all components to latest versions
-bun ui:update button            # Update specific component
+pnpm ui:update                   # Update all components to latest versions
+pnpm ui:update button            # Update specific component
 ```
 
 ### Essential Components
@@ -207,8 +207,8 @@ The `ui:essentials` script installs a curated set of 37 components perfect for m
 - **Data Display**: avatar, tooltip, popover
 
 ```bash
-bun ui:essentials --list        # Preview components without installing
-bun ui:essentials               # Install all essential components
+pnpm ui:essentials --list        # Preview components without installing
+pnpm ui:essentials               # Install all essential components
 ```
 
 All scripts include:

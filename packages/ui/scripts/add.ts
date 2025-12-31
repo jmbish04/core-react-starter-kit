@@ -1,4 +1,4 @@
-#!/usr/bin/env bun
+#!/usr/bin/env node
 import { execCommand, formatGeneratedFiles } from "./format-utils.js";
 
 async function addComponent(): Promise<void> {
@@ -8,15 +8,15 @@ async function addComponent(): Promise<void> {
     console.log("📋 shadcn/ui Component Installer");
     console.log("=================================\n");
     console.log("Usage:");
-    console.log("  bun run ui:add <component>     Add a single component");
-    console.log("  bun run ui:add <comp1> <comp2> Add multiple components");
+    console.log("  pnpm run ui:add <component>     Add a single component");
+    console.log("  pnpm run ui:add <comp1> <comp2> Add multiple components");
     console.log(
-      "  bun run ui:add --all           Add all available components",
+      "  pnpm run ui:add --all           Add all available components",
     );
     console.log("\nExamples:");
-    console.log("  bun run ui:add button");
-    console.log("  bun run ui:add button card input");
-    console.log("  bun run ui:add dialog alert-dialog toast");
+    console.log("  pnpm run ui:add button");
+    console.log("  pnpm run ui:add button card input");
+    console.log("  pnpm run ui:add dialog alert-dialog toast");
 
     if (args.length === 0) {
       process.exit(1);
@@ -30,8 +30,8 @@ async function addComponent(): Promise<void> {
   try {
     const shadcnArgs = ["shadcn@latest", "add", ...args, "--yes"];
 
-    console.log(`Running: bunx ${shadcnArgs.join(" ")}`);
-    await execCommand("bunx", shadcnArgs);
+    console.log(`Running: npx ${shadcnArgs.join(" ")}`);
+    await execCommand("npx", shadcnArgs);
 
     await formatGeneratedFiles();
 

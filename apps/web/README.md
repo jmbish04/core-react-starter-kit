@@ -12,7 +12,7 @@ We're running [Astro 5](https://astro.build/) with [React 19](https://react.dev/
 - **React 19**: For interactive components where you actually need JavaScript (sparingly)
 - **Tailwind CSS v4**: Lightning-fast utility-first CSS with the new CSS-based config
 - **Cloudflare Workers**: Deploy once, run everywhere at the edge
-- **Bun**: Because npm is so last year (and it's genuinely faster)
+- **PNPM**: Fast, disk-efficient package manager
 - **TypeScript**: Catching bugs at compile time since 2012
 
 ## Project Structure
@@ -43,17 +43,17 @@ web/
 
 ```bash
 # Install dependencies (from monorepo root)
-bun install
+pnpm install
 
 # Start development server
-bun web:dev
+pnpm web:dev
 # or
-bun --filter @repo/web dev
+pnpm --filter @repo/web dev
 
 # Build for production
-bun web:build
+pnpm web:build
 # or
-bun --filter @repo/web build
+pnpm --filter @repo/web build
 ```
 
 The site will be available at `http://localhost:4321` (Astro's default port, because 3000 was too mainstream).
@@ -62,14 +62,14 @@ The site will be available at `http://localhost:4321` (Astro's default port, bec
 
 ```bash
 # Development
-bun dev                  # Start dev server with hot reload
-bun build                # Build static site to dist/
-bun preview              # Preview production build locally
-bun check                # Type-check .astro files
+pnpm dev                  # Start dev server with hot reload
+pnpm build                # Build static site to dist/
+pnpm preview              # Preview production build locally
+pnpm check                # Type-check .astro files
 
 # Deployment
-bun deploy               # Deploy to Cloudflare Workers (production)
-bun deploy:preview       # Deploy to preview environment
+pnpm deploy               # Deploy to Cloudflare Workers (production)
+pnpm deploy:preview       # Deploy to preview environment
 ```
 
 ## Styling with Tailwind CSS v4
@@ -236,10 +236,10 @@ The site deploys to Cloudflare Workers Sites for edge delivery:
 
 ```bash
 # Deploy to production
-bun deploy
+pnpm deploy
 
 # Deploy to preview environment
-bun deploy:preview
+pnpm deploy:preview
 ```
 
 ### Deployment Configuration
@@ -324,10 +324,10 @@ kill -9 <PID>
 
 ```bash
 # Verbose logging
-DEBUG=* bun dev
+DEBUG=* pnpm dev
 
 # Astro debug info
-bun astro info
+pnpm astro info
 ```
 
 ## Contributing

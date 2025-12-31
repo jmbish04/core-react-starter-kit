@@ -6,7 +6,7 @@ Type-safe WebSocket protocol definitions using [WS-Kit](https://github.com/krias
 
 ```bash
 # Run example server
-bun run example
+pnpm run example
 ```
 
 ## Usage

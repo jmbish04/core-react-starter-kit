@@ -8,10 +8,10 @@ TypeScript, tRPC, Drizzle ORM, Better Auth.
 
 ## Commands
 
-- `bun dev` - Start development server
-- `bun build` - Build production server
-- `bun test` - Run tests
-- `bun typecheck` - Type check the codebase
+- `pnpm dev` - Start development server
+- `pnpm build` - Build production server
+- `pnpm test` - Run tests
+- `pnpm typecheck` - Type check the codebase
 
 ## References
 

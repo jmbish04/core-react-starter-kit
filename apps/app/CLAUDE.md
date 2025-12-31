@@ -8,9 +8,9 @@ React 19, TypeScript, Vite, TanStack Router, shadcn/ui, Tailwind CSS v4, Jotai, 
 
 ## Commands
 
-- `bun --filter web dev` - Dev server
-- `bun --filter web test` - Run tests
-- `bun --filter web lint` - Lint code
+- `pnpm --filter web dev` - Dev server
+- `pnpm --filter web test` - Run tests
+- `pnpm --filter web lint` - Lint code
 
 ## Structure
 

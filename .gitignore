@@ -5,8 +5,7 @@
 **/dist/
 **/*.tsbuildinfo
 
-# Bun package manager
-# https://bun.sh/docs/install/lockfile
+# Node modules
 node_modules/
 
 # Logs

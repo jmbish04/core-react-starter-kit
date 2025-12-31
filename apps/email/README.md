@@ -12,13 +12,13 @@ A collection of transactional email templates built with React Email.
 
 ```bash
 # Start email preview development server
-bun email:dev
+pnpm email:dev
 
 # Build email templates
-bun email:build
+pnpm email:build
 
 # Export static email templates
-bun email:export
+pnpm email:export
 ```
 
 The development server will be available at <http://localhost:3001>

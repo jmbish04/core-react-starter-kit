@@ -15,9 +15,9 @@
     "./package.json": "./package.json"
   },
   "scripts": {
-    "dev": "bunx react-email dev --port 3001",
+    "dev": "npx react-email dev --port 3001",
     "build": "tsc",
-    "export": "bunx react-email export",
+    "export": "npx react-email export",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {

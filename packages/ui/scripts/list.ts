@@ -1,7 +1,10 @@
-#!/usr/bin/env bun
+#!/usr/bin/env node
 import { existsSync } from "node:fs";
 import { readdir, stat } from "node:fs/promises";
-import { basename, join } from "node:path";
+import { basename, join, dirname } from "node:path";
+import { fileURLToPath } from "node:url";
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 interface ComponentInfo {
   name: string;
@@ -24,11 +27,11 @@ async function listComponents(): Promise<void> {
   console.log("📋 shadcn/ui Component Inventory");
   console.log("=============================\n");
 
-  const componentsDir = join(import.meta.dirname, "../components");
+  const componentsDir = join(__dirname, "../components");
 
   if (!existsSync(componentsDir)) {
     console.log(`❌ Components directory not found: ${componentsDir}`);
-    console.log("💡 Run 'bunx shadcn@latest init' to set up shadcn/ui first");
+    console.log("💡 Run 'npx shadcn@latest init' to set up shadcn/ui first");
     process.exit(1);
   }
 
@@ -38,7 +41,7 @@ async function listComponents(): Promise<void> {
 
     if (tsxFiles.length === 0) {
       console.log("❌ No shadcn/ui components found");
-      console.log("💡 Add components with: bun run ui:add <component-name>");
+      console.log("💡 Add components with: pnpm run ui:add <component-name>");
       return;
     }
 
@@ -71,7 +74,7 @@ async function listComponents(): Promise<void> {
     console.log(`Total components: ${components.length}`);
 
     console.log("\n🔄 To update all components, run:");
-    console.log("  bun run ui:update");
+    console.log("  pnpm run ui:update");
   } catch (error) {
     console.error("Error reading components:", error);
     process.exit(1);

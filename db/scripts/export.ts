@@ -1,17 +1,17 @@
-#!/usr/bin/env bun
+#!/usr/bin/env node
 /**
  * PostgreSQL database export utility with schema/data options
  *
  * Usage:
- *   bun scripts/export.ts                    # Schema only (default)
- *   bun scripts/export.ts --data             # Schema + data
- *   bun scripts/export.ts --data-only        # Data only
- *   bun scripts/export.ts --table=users      # Specific table
- *   bun scripts/export.ts -- --inserts       # Pass pg_dump flags directly
+ *   tsx scripts/export.ts                    # Schema only (default)
+ *   tsx scripts/export.ts --data             # Schema + data
+ *   tsx scripts/export.ts --data-only        # Data only
+ *   tsx scripts/export.ts --table=users      # Specific table
+ *   tsx scripts/export.ts -- --inserts       # Pass pg_dump flags directly
  *
  * Environment:
- *   bun --env ENVIRONMENT=staging scripts/export.ts
- *   bun --env ENVIRONMENT=prod scripts/export.ts
+ *   cross-env ENVIRONMENT=staging tsx scripts/export.ts
+ *   cross-env ENVIRONMENT=prod tsx scripts/export.ts
  *
  * REQUIREMENTS:
  * - DATABASE_URL environment variable must be set and valid PostgreSQL connection string
@@ -23,13 +23,45 @@
  * - Script handles concurrent executions without filename conflicts
  */
 
-import { $ } from "bun";
+import { spawn } from "node:child_process";
 import { existsSync } from "fs";
 import { chmod, mkdir } from "fs/promises";
 import { resolve } from "path";
 
 // Import drizzle config to trigger environment loading and validation
-import "../drizzle.config";
+import "../drizzle.config.js";
+
+// Helper function to run shell commands
+async function execCommand(
+  command: string,
+  args: string[],
+): Promise<{ stdout: string; stderr: string }> {
+  return new Promise((resolve, reject) => {
+    let stdout = "";
+    let stderr = "";
+    const proc = spawn(command, args);
+
+    proc.stdout?.on("data", (data) => {
+      stdout += data.toString();
+    });
+
+    proc.stderr?.on("data", (data) => {
+      stderr += data.toString();
+    });
+
+    proc.on("close", (code) => {
+      if (code !== 0) {
+        reject(new Error(`Command failed with code ${code}: ${stderr}`));
+      } else {
+        resolve({ stdout, stderr });
+      }
+    });
+
+    proc.on("error", (err) => {
+      reject(err);
+    });
+  });
+}
 
 // Parse arguments
 const args = process.argv.slice(2);
@@ -103,7 +135,7 @@ pgDumpArgs.push(`--file=${outputPath}`);
 
 // Check if pg_dump is available
 try {
-  await $`which pg_dump`.quiet();
+  await execCommand("which", ["pg_dump"]);
 } catch {
   console.error(
     "❌ pg_dump not found. Please install PostgreSQL client tools.",
@@ -116,7 +148,7 @@ console.log(`📁 Output: ${outputPath}`);
 
 try {
   // Execute pg_dump
-  await $`pg_dump ${pgDumpArgs}`;
+  await execCommand("pg_dump", pgDumpArgs);
 
   // Set file permissions to owner-only readable (600)
   await chmod(outputPath, 0o600);

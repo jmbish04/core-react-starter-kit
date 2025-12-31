@@ -48,7 +48,7 @@ terraform -chdir=infra/envs/dev/edge apply
 terraform -chdir=infra/envs/dev/edge output hyperdrive_id
 
 # Deploy Worker via Wrangler
-cd apps/api && bun wrangler deploy --env dev
+cd apps/api && pnpm wrangler deploy --env dev
 ```
 
 Required variables: `cloudflare_api_token`, `cloudflare_account_id`, `project_slug`, `environment`, `neon_database_url`

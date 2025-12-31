@@ -1,6 +1,10 @@
-#!/usr/bin/env bun
-import { join } from "node:path";
-import { Glob } from "bun";
+#!/usr/bin/env node
+import { join, dirname } from "node:path";
+import { spawn } from "node:child_process";
+import { fileURLToPath } from "node:url";
+import { glob } from "glob";
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 /**
  * Execute a command with inherited stdio
@@ -9,14 +13,23 @@ export async function execCommand(
   command: string,
   args: string[],
 ): Promise<void> {
-  const proc = Bun.spawn([command, ...args], {
-    stdio: ["inherit", "inherit", "inherit"],
-  });
+  return new Promise((resolve, reject) => {
+    const proc = spawn(command, args, {
+      stdio: "inherit",
+    });
 
-  const exitCode = await proc.exited;
-  if (exitCode !== 0) {
-    throw new Error(`Command failed: ${command} ${args.join(" ")}`);
-  }
+    proc.on("close", (code) => {
+      if (code !== 0) {
+        reject(new Error(`Command failed: ${command} ${args.join(" ")}`));
+      } else {
+        resolve();
+      }
+    });
+
+    proc.on("error", (err) => {
+      reject(err);
+    });
+  });
 }
 
 /**
@@ -24,17 +37,12 @@ export async function execCommand(
  */
 export async function formatGeneratedFiles(): Promise<void> {
   try {
-    const componentsDir = join(import.meta.dirname, "../components");
+    const componentsDir = join(__dirname, "../components");
 
-    const glob = new Glob("**/*.{ts,tsx}");
-    const componentFiles: string[] = [];
-
-    for await (const file of glob.scan({
+    const componentFiles = await glob("**/*.{ts,tsx}", {
       cwd: componentsDir,
       absolute: true,
-    })) {
-      componentFiles.push(file);
-    }
+    });
 
     if (componentFiles.length === 0) {
       return;
@@ -42,7 +50,7 @@ export async function formatGeneratedFiles(): Promise<void> {
 
     console.log("🎨 Formatting generated files with Prettier...");
 
-    await execCommand("bunx", ["prettier", "--write", ...componentFiles]);
+    await execCommand("npx", ["prettier", "--write", ...componentFiles]);
 
     console.log("✨ Files formatted successfully");
   } catch (error) {

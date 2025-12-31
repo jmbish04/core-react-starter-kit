@@ -327,7 +327,7 @@ Questions: `security@kriasoft.com`
 
 ### Security Tools
 
-- **Dependency Scanning**: `bun audit`, Dependabot
+- **Dependency Scanning**: `pnpm audit`, Dependabot
 - **Static Analysis**: ESLint security plugins
 - **Secret Scanning**: GitHub secret scanning, truffleHog
 - **SAST**: Semgrep, CodeQL
