@@ -4,10 +4,12 @@
 echo "🔧 Migrating repo configuration to pnpm..."
 
 # Remove "packageManager": "bun..." from package.json to allow pnpm to run
-jq 'del(.packageManager)' package.json > package.json.tmp && mv package.json.tmp package.json
+if [ -f package.json ]; then
+  jq 'del(.packageManager)' package.json > package.json.tmp && mv package.json.tmp package.json
+fi
 
-# Generate pnpm-workspace.yaml from the existing workspaces field
-if [ ! -f "pnpm-workspace.yaml" ]; then
+# Generate pnpm-workspace.yaml from the existing workspaces field (if missing)
+if [ ! -f "pnpm-workspace.yaml" ] && [ -f package.json ]; then
   echo "packages:" > pnpm-workspace.yaml
   jq -r '.workspaces[]' package.json | sed 's/^/  - /' >> pnpm-workspace.yaml
 fi
@@ -17,11 +19,11 @@ echo "📦 Installing project dependencies with pnpm..."
 pnpm install
 
 # --- 3. Install Tooling Dependencies ---
+# ADDED -w flag to fix ERR_PNPM_ADDING_TO_ROOT
 echo "➕ Installing @modelcontextprotocol/sdk and tsx..."
-pnpm add -D @modelcontextprotocol/sdk tsx
+pnpm add -w -D @modelcontextprotocol/sdk tsx
 
 # --- 4. Create 'scripts/ask-cloudflare.ts' ---
-# Only creates it if it doesn't exist in the repo
 if [ ! -f "scripts/ask-cloudflare.ts" ]; then
   echo "🛠️  Creating scripts/ask-cloudflare.ts..."
   mkdir -p scripts
