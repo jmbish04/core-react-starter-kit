@@ -39,7 +39,7 @@ async function execCommand(
   return new Promise((resolve, reject) => {
     let stdout = "";
     let stderr = "";
-    const proc = spawn(command, args, { shell: true });
+    const proc = spawn(command, args);
 
     proc.stdout?.on("data", (data) => {
       stdout += data.toString();

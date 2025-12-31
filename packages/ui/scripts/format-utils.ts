@@ -16,7 +16,6 @@ export async function execCommand(
   return new Promise((resolve, reject) => {
     const proc = spawn(command, args, {
       stdio: "inherit",
-      shell: true,
     });
 
     proc.on("close", (code) => {

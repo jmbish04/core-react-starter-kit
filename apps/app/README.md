@@ -418,7 +418,6 @@ pnpm typecheck
 
 **Slow initial load**
 
-- Check bundle size with `pnpm analyze`
 - Implement route-based code splitting
 - Lazy load heavy components
 
