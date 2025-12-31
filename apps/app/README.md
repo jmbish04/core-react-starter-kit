@@ -53,17 +53,17 @@ app/
 
 ```bash
 # Install dependencies (from monorepo root)
-bun install
+pnpm install
 
 # Start development server
-bun app:dev
+pnpm app:dev
 # or
-bun --filter @repo/app dev
+pnpm --filter @repo/app dev
 
 # Build for production
-bun app:build
+pnpm app:build
 # or
-bun --filter @repo/app build
+pnpm --filter @repo/app build
 ```
 
 The app will be available at `http://localhost:5173` (Vite's default port).
@@ -72,16 +72,16 @@ The app will be available at `http://localhost:5173` (Vite's default port).
 
 ```bash
 # Development
-bun dev                  # Start dev server with hot reload
-bun build                # Build for production to dist/
-bun preview              # Preview production build locally
-bun typecheck            # Run TypeScript type checking
-bun lint                 # Lint code with ESLint
+pnpm dev                  # Start dev server with hot reload
+pnpm build                # Build for production to dist/
+pnpm preview              # Preview production build locally
+pnpm typecheck            # Run TypeScript type checking
+pnpm lint                 # Lint code with ESLint
 
 # Testing
-bun test                 # Run tests
-bun test:watch           # Run tests in watch mode
-bun test:coverage        # Generate coverage report
+pnpm test                 # Run tests
+pnpm test:watch           # Run tests in watch mode
+pnpm test:coverage        # Generate coverage report
 ```
 
 ## Routing with TanStack Router
@@ -185,13 +185,13 @@ function MyComponent() {
 
 ```bash
 # Add a new shadcn/ui component to the shared package
-bun ui:add dialog
+pnpm ui:add dialog
 
 # List available components
-bun ui:list
+pnpm ui:list
 
 # Install essential components
-bun ui:essentials
+pnpm ui:essentials
 ```
 
 ## Styling with Tailwind CSS v4
@@ -364,7 +364,7 @@ test("dashboard loads organization data", async () => {
 ### Production Build
 
 ```bash
-bun build
+pnpm build
 ```
 
 This creates an optimized build in `dist/` with:
@@ -393,7 +393,7 @@ Note: Vite requires `VITE_` prefix for client-side variables.
 
 ```bash
 # Check types without building
-bun typecheck
+pnpm typecheck
 ```
 
 **Route not found**
@@ -418,7 +418,7 @@ bun typecheck
 
 **Slow initial load**
 
-- Check bundle size with `bun analyze`
+- Check bundle size with `pnpm analyze`
 - Implement route-based code splitting
 - Lazy load heavy components
 

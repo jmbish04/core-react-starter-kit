@@ -8,7 +8,7 @@ Just want to dive in? Run these commands and you're good to go:
 ```bash
 git clone -o seed -b main --single-branch \
   https://github.com/kriasoft/react-starter-kit.git my-app
-cd my-app && bun install && bun dev
+cd my-app && pnpm install && pnpm dev
 ```
 
 :::
@@ -17,13 +17,10 @@ cd my-app && bun install && bun dev
 
 Before diving in, make sure you have these essentials:
 
-- **Bun** 1.3.0+ ([install here](https://bun.sh)) — trust us, it's worth it
+- **Node.js** 20.0.0+ ([install here](https://nodejs.org))
+- **PNPM** 10+ ([install here](https://pnpm.io)) — fast, disk-efficient package manager
 - A **Cloudflare** account for deployment (free tier works great)
 - Your favorite code editor (VS Code recommended, but we won't judge)
-
-::: info Node.js Optional
-While many developers have Node.js installed, this template runs entirely on Bun. You don't need Node.js unless you're integrating with Node-specific tools.
-:::
 
 ## Create Your Project
 
@@ -42,7 +39,7 @@ Perfect if you want to get started immediately and keep your project cleanly sep
 ```bash
 git clone https://github.com/YOUR_USERNAME/YOUR_PROJECT.git
 cd YOUR_PROJECT
-bun install
+pnpm install
 ```
 
 ::: tip
@@ -61,8 +58,8 @@ git clone -o seed -b main --single-branch \
 # Jump into your project
 cd my-app
 
-# Install dependencies (Bun makes this blazing fast)
-bun install
+# Install dependencies (PNPM makes this blazing fast)
+pnpm install
 ```
 
 The magic here is naming the remote "seed" instead of "origin". This way, you can add your own repository as "origin" later while keeping the template connection alive:
@@ -112,13 +109,13 @@ Fire up the development environment with two terminals:
 **Terminal 1 - React App:**
 
 ```bash
-bun app:dev  # or bun --filter @repo/app dev
+pnpm app:dev  # or pnpm --filter @repo/app dev
 ```
 
 **Terminal 2 - API Server:**
 
 ```bash
-bun api:dev  # or bun --filter @repo/api dev
+pnpm api:dev  # or pnpm --filter @repo/api dev
 ```
 
 This starts:
@@ -130,8 +127,8 @@ This starts:
 **Optional - Other services:**
 
 ```bash
-bun web:dev    # Marketing site (Astro) at http://localhost:4321
-bun email:dev  # Email preview server at http://localhost:3001
+pnpm web:dev    # Marketing site (Astro) at http://localhost:4321
+pnpm email:dev  # Email preview server at http://localhost:3001
 ```
 
 ::: details What's happening under the hood?
@@ -149,9 +146,9 @@ Open your browser and check out:
 
 - **App**: `http://localhost:5173` — Your React app with TanStack Router
 - **API**: `http://localhost:8787` — tRPC API endpoints
-- **Database GUI**: Run `bun --filter @repo/db studio` to explore your database
-- **Email Templates**: Run `bun email:dev` for preview at `http://localhost:3001`
-- **Astro Site**: Run `bun web:dev` for the marketing site at `http://localhost:4321`
+- **Database GUI**: Run `pnpm --filter @repo/db studio` to explore your database
+- **Email Templates**: Run `pnpm email:dev` for preview at `http://localhost:3001`
+- **Astro Site**: Run `pnpm web:dev` for the marketing site at `http://localhost:4321`
 
 ### 3. Make It Yours
 
@@ -168,17 +165,17 @@ The template uses Neon PostgreSQL with Drizzle ORM. To set up your database:
 
 ```bash
 # Generate the initial schema
-bun --filter @repo/db generate
+pnpm --filter @repo/db generate
 
 # Apply migrations to your local database
-bun --filter @repo/db push
+pnpm --filter @repo/db push
 
 # (Optional) Seed with sample data
-bun --filter @repo/db seed
+pnpm --filter @repo/db seed
 ```
 
 ::: tip Database GUI
-Want to explore your data visually? Run `bun --filter @repo/db studio` to open Drizzle Studio in your browser.
+Want to explore your data visually? Run `pnpm --filter @repo/db studio` to open Drizzle Studio in your browser.
 :::
 
 ## Authentication
@@ -222,13 +219,13 @@ The template includes React Email templates for authentication:
 
 ```bash
 # Preview email templates
-bun email:dev
+pnpm email:dev
 
 # Build for production
-bun email:build
+pnpm email:build
 
 # Export static HTML
-bun email:export
+pnpm email:export
 ```
 
 ## UI Components Management
@@ -237,20 +234,20 @@ The template includes powerful shadcn/ui component management utilities:
 
 ```bash
 # Add specific components
-bun run ui:add button dialog
+pnpm run ui:add button dialog
 
 # Install essential components (37 pre-selected)
-bun run ui:essentials
+pnpm run ui:essentials
 
 # List installed components
-bun run ui:list
+pnpm run ui:list
 
 # Update components to latest versions
-bun run ui:update
+pnpm run ui:update
 ```
 
 ::: tip Quick Setup
-Running `bun run ui:essentials` gives you 37 carefully selected components that cover 90% of typical UI needs — forms, layout, navigation, and feedback components.
+Running `pnpm run ui:essentials` gives you 37 carefully selected components that cover 90% of typical UI needs — forms, layout, navigation, and feedback components.
 
 For detailed component management documentation, see the [UI Components Guide](/ui-components).
 :::
@@ -261,31 +258,31 @@ Here's your daily routine:
 
 ```bash
 # Start development (in separate terminals)
-bun app:dev   # Terminal 1: React app
-bun api:dev   # Terminal 2: API server
+pnpm app:dev   # Terminal 1: React app
+pnpm api:dev   # Terminal 2: API server
 
 # Run tests (yes, we have tests!)
-bun test
+pnpm test
 
 # Lint your code (keep it clean)
-bun lint
+pnpm lint
 
 # Build for production
-bun email:build  # Build email templates first
-bun app:build    # Build React app
-bun api:build    # Build API
+pnpm email:build  # Build email templates first
+pnpm app:build    # Build React app
+pnpm api:build    # Build API
 ```
 
 ::: info Type Checking
-TypeScript checking happens automatically in your editor. For CI/CD, run `bun --filter @repo/api build` to verify types.
+TypeScript checking happens automatically in your editor. For CI/CD, run `pnpm --filter @repo/api build` to verify types.
 :::
 
 ### 💡 Hot Tips for Development
 
 - **API Types**: After modifying tRPC routes, types auto-generate — no manual sync needed
-- **Database Changes**: Edit `db/schema/`, then run `bun --filter @repo/db generate` and `push`
+- **Database Changes**: Edit `db/schema/`, then run `pnpm --filter @repo/db generate` and `push`
 - **Component Library**: shadcn/ui components are ready to use — check `packages/ui/components`
-- **UI Components**: Add new components with `bun run ui:add <component>` or install essentials with `bun run ui:essentials`
+- **UI Components**: Add new components with `pnpm run ui:add <component>` or install essentials with `pnpm run ui:essentials`
 - **State Management**: Global state lives in `apps/app/lib/store.ts` using Jotai
 
 ## Deploy to Production
@@ -294,17 +291,17 @@ Ready to ship? Let's deploy to Cloudflare Workers:
 
 ```bash
 # First, login to Cloudflare
-bun wrangler login
+pnpm wrangler login
 
 # Build packages (order matters!)
-bun email:build   # Build email templates
-bun web:build     # Build marketing site
-bun app:build     # Build React app
+pnpm email:build   # Build email templates
+pnpm web:build     # Build marketing site
+pnpm app:build     # Build React app
 
 # Deploy applications
-bun web:deploy    # Deploy marketing site
-bun api:deploy    # Deploy API server
-bun app:deploy    # Deploy React app
+pnpm web:deploy    # Deploy marketing site
+pnpm api:deploy    # Deploy API server
+pnpm app:deploy    # Deploy React app
 ```
 
 ::: warning Environment Configuration
@@ -324,7 +321,7 @@ Production uses Neon PostgreSQL — ensure your production database is configure
 
 ```bash
 # Apply migrations to production
-bun --filter @repo/db migrate --env=production
+pnpm --filter @repo/db migrate --env=production
 ```
 
 :::
@@ -334,7 +331,7 @@ All API calls go through `/api/trpc` — the client handles this automatically. 
 :::
 
 ::: info Build Errors
-If TypeScript complains, try `bun --filter @repo/api build` first. This regenerates type definitions.
+If TypeScript complains, try `pnpm --filter @repo/api build` first. This regenerates type definitions.
 :::
 
 ## Next Steps

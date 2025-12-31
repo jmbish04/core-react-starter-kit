@@ -31,20 +31,20 @@ From the repo root:
 
 ```bash
 # Use the workspace name
-bun --filter @repo/db push       # Apply schema (drizzle-kit push)
-bun --filter @repo/db migrate    # Run pending migrations
-bun --filter @repo/db generate   # Generate migration from schema changes
-bun --filter @repo/db studio     # Open Drizzle Studio
-bun --filter @repo/db seed       # Run seed scripts
-bun --filter @repo/db check      # Drift check
-bun --filter @repo/db drop       # Drop all tables (destructive)
+pnpm --filter @repo/db push       # Apply schema (drizzle-kit push)
+pnpm --filter @repo/db migrate    # Run pending migrations
+pnpm --filter @repo/db generate   # Generate migration from schema changes
+pnpm --filter @repo/db studio     # Open Drizzle Studio
+pnpm --filter @repo/db seed       # Run seed scripts
+pnpm --filter @repo/db check      # Drift check
+pnpm --filter @repo/db drop       # Drop all tables (destructive)
 ```
 
 Or from inside `db/`:
 
 ```bash
 cd db
-bun run push
+pnpm run push
 ```
 
 ## Targeting Staging/Prod
@@ -52,27 +52,27 @@ bun run push
 Scripts with suffixes set `ENVIRONMENT` for you:
 
 ```bash
-bun --filter @repo/db push:staging    # Uses .env.staging.local → .env.local → .env
-bun --filter @repo/db push:prod       # Uses .env.prod.local   → .env.local → .env
-bun --filter @repo/db seed:prod
-bun --filter @repo/db studio:prod
+pnpm --filter @repo/db push:staging    # Uses .env.staging.local → .env.local → .env
+pnpm --filter @repo/db push:prod       # Uses .env.prod.local   → .env.local → .env
+pnpm --filter @repo/db seed:prod
+pnpm --filter @repo/db studio:prod
 ```
 
-You can also override with `ENVIRONMENT=prod bun --filter @repo/db push`.
+You can also override with `ENVIRONMENT=prod pnpm --filter @repo/db push`.
 
 ## Typical Workflow
 
 1. Update schema in `db/schema`.
-2. Generate a migration: `bun --filter @repo/db generate --name <migration-name>`.
-3. Apply locally: `bun --filter @repo/db migrate` (or `push` if you prefer schema sync).
-4. Validate in Drizzle Studio: `bun --filter @repo/db studio`.
+2. Generate a migration: `pnpm --filter @repo/db generate --name <migration-name>`.
+3. Apply locally: `pnpm --filter @repo/db migrate` (or `push` if you prefer schema sync).
+4. Validate in Drizzle Studio: `pnpm --filter @repo/db studio`.
 5. Apply to staging/prod with the matching `:staging` or `:prod` scripts.
 
 ## Seeding
 
 - Seeds live in `db/seeds/` (currently `users.ts`).
-- Run locally: `bun --filter @repo/db seed`.
-- Run against another environment: `bun --filter @repo/db seed:staging` or `seed:prod`.
+- Run locally: `pnpm --filter @repo/db seed`.
+- Run against another environment: `pnpm --filter @repo/db seed:staging` or `seed:prod`.
 
 ## Importing Schemas
 
@@ -88,7 +88,7 @@ import { organization, member } from "@/db/schema/organization";
 
 - Missing URL: ensure `DATABASE_URL` is set and starts with `postgres://` or `postgresql://`.
 - Wrong environment: confirm `ENVIRONMENT`/`NODE_ENV` matches the target and the corresponding `.env.*` file exists.
-- Drift/conflicts: run `bun --filter @repo/db check`; regenerate migrations if schema and migrations diverge.
+- Drift/conflicts: run `pnpm --filter @repo/db check`; regenerate migrations if schema and migrations diverge.
 
 ## UUID v7
 

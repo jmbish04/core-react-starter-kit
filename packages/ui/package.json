@@ -24,10 +24,10 @@
     "dev": "tsc --watch",
     "lint": "eslint . --max-warnings 0",
     "type-check": "tsc --noEmit",
-    "add": "bun scripts/add.ts",
-    "list": "bun scripts/list.ts",
-    "update": "bun scripts/update.ts",
-    "essentials": "bun scripts/essentials.ts"
+    "add": "tsx scripts/add.ts",
+    "list": "tsx scripts/list.ts",
+    "update": "tsx scripts/update.ts",
+    "essentials": "tsx scripts/essentials.ts"
   },
   "peerDependencies": {
     "react": ">=19.2.1",
@@ -50,9 +50,12 @@
     "tailwind-merge": "^3.4.0"
   },
   "devDependencies": {
+    "@types/node": "^24.10.1",
     "@types/react": "^19.2.7",
     "@types/react-dom": "^19.2.3",
+    "glob": "^11.0.0",
     "tailwindcss": "^4.1.17",
+    "tsx": "^4.19.4",
     "typescript": "~5.9.3"
   },
   "license": "MIT"

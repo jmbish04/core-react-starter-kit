@@ -8,7 +8,7 @@ Install essential components to get started quickly:
 
 ```bash
 # Install 37 pre-selected essential components
-bun ui:essentials
+pnpm ui:essentials
 ```
 
 This installs the most commonly used components covering forms, layout, navigation, and feedback patterns.
@@ -23,13 +23,13 @@ Install specific components from the shadcn/ui registry:
 
 ```bash
 # Add single component
-bun ui:add button
+pnpm ui:add button
 
 # Add multiple components
-bun ui:add dialog card select
+pnpm ui:add dialog card select
 
 # Interactive mode - browse and select
-bun ui:add
+pnpm ui:add
 ```
 
 ### List Installed Components
@@ -37,7 +37,7 @@ bun ui:add
 See what components are currently installed:
 
 ```bash
-bun ui:list
+pnpm ui:list
 ```
 
 This shows:
@@ -53,13 +53,13 @@ Keep your components up-to-date with the latest versions:
 
 ```bash
 # Update all installed components
-bun ui:update
+pnpm ui:update
 
 # Update specific components
-bun ui:update button dialog
+pnpm ui:update button dialog
 
 # Check for updates without installing
-bun ui:update --dry-run
+pnpm ui:update --dry-run
 ```
 
 ### Install Essential Components
@@ -67,7 +67,7 @@ bun ui:update --dry-run
 Quick setup with carefully selected components:
 
 ```bash
-bun ui:essentials
+pnpm ui:essentials
 ```
 
 This installs 37 components including:
@@ -342,10 +342,10 @@ If a component import fails:
 
 ```bash
 # Verify installation
-bun ui:list
+pnpm ui:list
 
 # Reinstall if missing
-bun ui:add [component-name]
+pnpm ui:add [component-name]
 ```
 
 ### Style Conflicts

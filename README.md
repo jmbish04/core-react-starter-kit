@@ -15,7 +15,7 @@ React Starter Kit is proudly supported by these amazing sponsors:
 
 ## What You Get
 
-- **Performance by Default**: Bun runtime delivers exceptional speed across development and production. Your build times will thank you.
+- **Performance by Default**: PNPM provides fast, efficient package management with excellent monorepo support. Your install times will thank you.
 - **Type Safety Throughout**: TypeScript and tRPC create an unbreakable contract between frontend and backend. Catch errors at compile time, not in production.
 - **Modern React Stack**: React 19 with TanStack Router provides type-safe navigation and powerful data fetching patterns. Tailwind CSS v4 handles styling with zero configuration.
 - **Edge-Native Deployment**: Cloudflare Workers ensure your app runs close to users worldwide. Experience sub-100ms response times globally.
@@ -39,7 +39,8 @@ Be sure to join our [Discord channel](https://discord.gg/2nKEnKq) for assistance
 
 **Core Runtime & Platform**
 
-- [Bun](https://bun.sh/) — Lightning-fast JavaScript runtime and package manager
+- [PNPM](https://pnpm.io/) — Fast, disk-efficient package manager with excellent monorepo support
+- [Node.js](https://nodejs.org/) — JavaScript runtime
 - [Cloudflare Workers](https://workers.cloudflare.com/) — Edge computing platform
 
 ### Frontend & UI
@@ -91,7 +92,8 @@ This starter kit uses a thoughtfully organized monorepo structure that promotes 
 
 ## Prerequisites
 
-- [Bun](https://bun.sh/) v1.3+ (replaces Node.js and npm)
+- [Node.js](https://nodejs.org/) v20+ 
+- [PNPM](https://pnpm.io/) v10+ (install with `npm install -g pnpm`)
 - [VS Code](https://code.visualstudio.com/) with our [recommended extensions](.vscode/extensions.json)
 - [React Developer Tools](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi?hl=en) browser extension (recommended)
 - [Cloudflare account](https://dash.cloudflare.com/sign-up) for deployment
@@ -110,7 +112,7 @@ cd your-project-name
 ### 2. Install Dependencies
 
 ```bash
-bun install
+pnpm install
 ```
 
 ### 3. Configure Environment
@@ -121,12 +123,12 @@ Update environment variables in [`.env`](./.env) and `.env.local` files as well 
 
 ```bash
 # Launch all apps in development mode (web, api, and app)
-bun dev
+pnpm dev
 
 # Or, start specific apps individually
-bun --filter @repo/web dev  # Marketing site
-bun --filter @repo/app dev  # Main application
-bun --filter @repo/api dev  # API server
+pnpm --filter @repo/web dev  # Marketing site
+pnpm --filter @repo/app dev  # Main application
+pnpm --filter @repo/api dev  # API server
 ```
 
 ### 5. Initialize Database
@@ -135,16 +137,16 @@ Set up your database connection and schema:
 
 ```bash
 # Apply migrations to database
-bun --filter @repo/db migrate
+pnpm --filter @repo/db migrate
 
 # Quick development setup (pushes schema directly, skips migrations)
-bun --filter @repo/db push
+pnpm --filter @repo/db push
 
 # Seed with sample data (optional)
-bun --filter @repo/db seed
+pnpm --filter @repo/db seed
 
 # Open database GUI for inspection
-bun --filter @repo/db studio
+pnpm --filter @repo/db studio
 ```
 
 **Note:** Ensure `DATABASE_URL` is configured in your `.env.local` file before running these commands.
@@ -159,17 +161,17 @@ Configure your production secrets in Cloudflare Workers:
 
 ```bash
 # Required secrets
-bun wrangler secret put BETTER_AUTH_SECRET
+pnpm wrangler secret put BETTER_AUTH_SECRET
 
 # OAuth providers (as needed)
-bun wrangler secret put GOOGLE_CLIENT_ID
-bun wrangler secret put GOOGLE_CLIENT_SECRET
+pnpm wrangler secret put GOOGLE_CLIENT_ID
+pnpm wrangler secret put GOOGLE_CLIENT_SECRET
 
 # Email service
-bun wrangler secret put RESEND_API_KEY
+pnpm wrangler secret put RESEND_API_KEY
 
 # AI features (optional)
-bun wrangler secret put OPENAI_API_KEY
+pnpm wrangler secret put OPENAI_API_KEY
 ```
 
 **Note:** The `RESEND_EMAIL_FROM` is configured in `wrangler.jsonc` as it's not sensitive.
@@ -178,14 +180,14 @@ bun wrangler secret put OPENAI_API_KEY
 
 ```bash
 # Build packages that require compilation (order matters!)
-bun email:build    # Build email templates first
-bun web:build      # Build marketing site
-bun app:build      # Build main React app
+pnpm email:build    # Build email templates first
+pnpm web:build      # Build marketing site
+pnpm app:build      # Build main React app
 
 # Deploy all applications
-bun web:deploy     # Deploy marketing site
-bun api:deploy     # Deploy API server
-bun app:deploy     # Deploy main React app
+pnpm web:deploy     # Deploy marketing site
+pnpm api:deploy     # Deploy API server
+pnpm app:deploy     # Deploy main React app
 ```
 
 Your application will be live on your Cloudflare Workers domain within seconds. The edge-first architecture ensures optimal performance regardless of user location.

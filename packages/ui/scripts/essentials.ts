@@ -1,4 +1,4 @@
-#!/usr/bin/env bun
+#!/usr/bin/env node
 import { execCommand, formatGeneratedFiles } from "./format-utils.js";
 
 // Essential components for most applications
@@ -56,10 +56,10 @@ async function installEssentials(): Promise<void> {
     console.log("• Data Display: avatar, tooltip, popover\n");
     console.log("Usage:");
     console.log(
-      "  bun run ui:essentials          Install all essential components",
+      "  pnpm run ui:essentials          Install all essential components",
     );
     console.log(
-      "  bun run ui:essentials --list   List essential components without installing",
+      "  pnpm run ui:essentials --list   List essential components without installing",
     );
     process.exit(0);
   }
@@ -74,7 +74,7 @@ async function installEssentials(): Promise<void> {
     });
 
     console.log("\n💡 To install these components, run:");
-    console.log("  bun run ui:essentials");
+    console.log("  pnpm run ui:essentials");
     return;
   }
 
@@ -92,7 +92,7 @@ async function installEssentials(): Promise<void> {
       "--yes",
     ];
 
-    await execCommand("bunx", shadcnArgs);
+    await execCommand("npx", shadcnArgs);
 
     await formatGeneratedFiles();
 
@@ -100,7 +100,7 @@ async function installEssentials(): Promise<void> {
     console.log("\n📊 Summary:");
     console.log(`✅ Installed ${ESSENTIAL_COMPONENTS.length} components`);
     console.log("\n💡 View installed components with:");
-    console.log("  bun run ui:list");
+    console.log("  pnpm run ui:list");
   } catch (error) {
     console.error("❌ Failed to install essential components:", error);
     process.exit(1);

@@ -101,18 +101,18 @@ const env = z
 
 #### Package Management
 
-- [ ] Run `bun audit` regularly
+- [ ] Run `pnpm audit` regularly
 - [ ] Review new dependencies before adding
 - [ ] Check dependency licenses
 - [ ] Enable Dependabot alerts
 - [ ] Keep dependencies up to date
-- [ ] Use lock files (`bun.lockb`)
+- [ ] Use lock files (`pnpm-lock.yaml`)
 
 ```bash
 # Security audit commands
-bun audit                    # Check for vulnerabilities
-bun update --latest          # Update dependencies
-bun pm ls                    # List all dependencies
+pnpm audit                    # Check for vulnerabilities
+pnpm update --latest          # Update dependencies
+pnpm list                     # List all dependencies
 ```
 
 #### Supply Chain Security
@@ -251,8 +251,8 @@ requests_per_minute = 60
 # Example: GitHub Actions security
 - name: Run security audit
   run: |
-    bun audit
-    bun test:security
+    pnpm audit
+    pnpm test:security
 
 - name: SAST Scan
   uses: github/super-linter@v5
@@ -344,7 +344,7 @@ For immediate security improvements:
 1. **Run Security Audit**
 
    ```bash
-   bun audit
+   pnpm audit
    ```
 
 2. **Add Security Headers**

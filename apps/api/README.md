@@ -110,16 +110,16 @@ Each domain gets its own router for better organization:
 
 ```bash
 # Build API types
-bun --filter api build
+pnpm --filter api build
 
 # Run type checking
-bun --filter api typecheck
+pnpm --filter api typecheck
 
 # Run tests
-bun --filter api test
+pnpm --filter api test
 
 # Watch mode for development
-bun --filter api test --watch
+pnpm --filter api test --watch
 ```
 
 ### Adding New Endpoints
@@ -309,7 +309,7 @@ Test the complete request flow including authentication and database operations.
 
 If you're getting type errors after adding new endpoints:
 
-1. **Rebuild the API package**: `bun --filter api build`
+1. **Rebuild the API package**: `pnpm --filter api build`
 2. **Check your imports**: Make sure you're importing from the right path
 3. **Verify exports**: New routers must be exported from `router.ts`
 

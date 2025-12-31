@@ -1,7 +1,10 @@
 /**
  * Minimal WebSocket server example using WS-Kit.
  *
- * Run with: bun run example.ts
+ * Run with: pnpm run example
+ * 
+ * NOTE: This example uses the @ws-kit/bun adapter which requires Bun runtime.
+ * For Node.js/PNPM environments, you can use alternative adapters from WS-Kit.
  */
 
 import { createBunHandler } from "@ws-kit/bun";

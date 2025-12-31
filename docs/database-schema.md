@@ -400,8 +400,8 @@ betterAuth({
 3. Generate and apply migrations:
 
 ```bash
-bun --filter @repo/db generate --name add-custom-fields
-bun --filter @repo/db migrate # or, bun --filter @repo/db push
+pnpm --filter @repo/db generate --name add-custom-fields
+pnpm --filter @repo/db migrate # or, pnpm --filter @repo/db push
 ```
 
 ## Database Seeding
@@ -419,11 +419,11 @@ Seed scripts are located in `db/seeds/` and organized by entity type:
 
 ```bash
 # Seed development database
-bun --filter @repo/db seed
+pnpm --filter @repo/db seed
 
 # Seed specific environments
-bun --filter @repo/db seed:staging
-bun --filter @repo/db seed:prod
+pnpm --filter @repo/db seed:staging
+pnpm --filter @repo/db seed:prod
 ```
 
 ### Creating Custom Seeds

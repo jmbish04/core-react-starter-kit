@@ -1,11 +1,11 @@
-#!/usr/bin/env bun
+#!/usr/bin/env node
 import { existsSync } from "node:fs";
 import { readdir } from "node:fs/promises";
 import { basename, join } from "node:path";
 import { execCommand, formatGeneratedFiles } from "./format-utils.js";
 
 async function getInstalledComponents(): Promise<string[]> {
-  const componentsDir = join(import.meta.dirname, "../components");
+  const componentsDir = join(import.meta.dirname!, "../components");
 
   if (!existsSync(componentsDir)) {
     throw new Error(`Components directory not found: ${componentsDir}`);
@@ -37,7 +37,7 @@ async function updateComponents(): Promise<void> {
       console.log(`\n⏳ Updating ${component}...`);
 
       try {
-        await execCommand("bunx", [
+        await execCommand("npx", [
           "shadcn@latest",
           "add",
           component,
@@ -62,7 +62,7 @@ async function updateComponents(): Promise<void> {
 async function updateSpecificComponent(component: string): Promise<void> {
   console.log(`🚀 Updating specific component: ${component}...`);
   try {
-    await execCommand("bunx", [
+    await execCommand("npx", [
       "shadcn@latest",
       "add",
       component,
@@ -85,12 +85,12 @@ async function main(): Promise<void> {
     console.log("===============================\n");
     console.log("Usage:");
     console.log(
-      "  bun run ui:update              Update all installed components",
+      "  pnpm run ui:update              Update all installed components",
     );
-    console.log("  bun run ui:update <component>  Update a specific component");
+    console.log("  pnpm run ui:update <component>  Update a specific component");
     console.log("\nExamples:");
-    console.log("  bun run ui:update");
-    console.log("  bun run ui:update button");
+    console.log("  pnpm run ui:update");
+    console.log("  pnpm run ui:update button");
     process.exit(0);
   }
 

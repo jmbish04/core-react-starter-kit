@@ -21,7 +21,8 @@ on:
         required: true
 
 env:
-  BUN_VERSION: latest
+  PNPM_VERSION: 10
+  NODE_VERSION: 20
   VERSION: ${{ github.event.pull_request.number }}
   HUSKY: 0
 
@@ -35,34 +36,38 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      # Configure Bun and install dependencies
-      - uses: oven-sh/setup-bun@v2
+      # Configure pnpm and Node.js, install dependencies
+      - uses: pnpm/action-setup@v4
         with:
-          bun-version: ${{ env.BUN_VERSION }}
-      - run: bun install
+          version: ${{ env.PNPM_VERSION }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'pnpm'
+      - run: pnpm install --frozen-lockfile
 
       # Analyze code for potential problems
-      - run: bun prettier --check .
+      - run: pnpm prettier --check .
         if: ${{ github.event_name == 'pull_request' }}
-      - run: bun lint
+      - run: pnpm lint
         if: ${{ github.event_name == 'pull_request' }}
 
       # Type checking
-      - run: bun email:build # Build email templates first
-      - run: bun tsc --build
+      - run: pnpm email:build # Build email templates first
+      - run: pnpm tsc --build
 
       # Testing (commented out - enable as needed)
-      # - run: bun --filter @repo/web test
+      # - run: pnpm --filter @repo/web test
       #   if: ${{ github.event_name == 'pull_request' }}
-      # - run: bun --filter @repo/api test
+      # - run: pnpm --filter @repo/api test
       #   if: ${{ github.event_name == 'pull_request' }}
-      # - run: bun --filter @repo/app test
+      # - run: pnpm --filter @repo/app test
       #   if: ${{ github.event_name == 'pull_request' }}
 
       # Build all workspaces
-      - run: bun --filter @repo/web build
-      - run: bun --filter @repo/api build
-      - run: bun --filter @repo/app build
+      - run: pnpm --filter @repo/web build
+      - run: pnpm --filter @repo/api build
+      - run: pnpm --filter @repo/app build
 
       # Validate Terraform configuration and formatting
       - uses: hashicorp/setup-terraform@v3
